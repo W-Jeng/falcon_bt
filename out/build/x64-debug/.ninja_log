@@ -1,0 +1,16 @@
+# ninja log v5
+1	395	7431645652599290	falcon_bt/CMakeFiles/falcon_bt.dir/falcon_bt.cpp.obj	4fc7150588b64b54
+407	502	7431691134989608	falcon_bt/falcon_bt.exe	81414a01f397022c
+1	407	7431691134319025	falcon_bt/CMakeFiles/falcon_bt.dir/main.cpp.obj	8b015b922f9be7c1
+3	32	7431691130574516	falcon_bt/CMakeFiles/falcon_bt.dir/backtest_handler.cpp.obj	a81e54c1cbbc4442
+13	441	7431679977867604	falcon_bt/CMakeFiles/falcon_bt.dir/weird_strat.cpp.obj	807089bdb9fca6c3
+6	691	7431659631915241	falcon_bt/CMakeFiles/falcon_bt.dir/strategy.cpp.obj	e720cef3088cc8c9
+4	26	7431701134244470	falcon_bt/CMakeFiles/falcon_bt.dir/backtest_handler.cpp.obj	a81e54c1cbbc4442
+2	398	7431701137951929	falcon_bt/CMakeFiles/falcon_bt.dir/main.cpp.obj	8b015b922f9be7c1
+399	502	7431701138744379	falcon_bt/falcon_bt.exe	81414a01f397022c
+1	400	7431702629147226	falcon_bt/CMakeFiles/falcon_bt.dir/main.cpp.obj	8b015b922f9be7c1
+400	478	7431702629707994	falcon_bt/falcon_bt.exe	81414a01f397022c
+1	400	7431708484290611	falcon_bt/CMakeFiles/falcon_bt.dir/main.cpp.obj	8b015b922f9be7c1
+400	476	7431708484860610	falcon_bt/falcon_bt.exe	81414a01f397022c
+10	422	7431708589313875	falcon_bt/CMakeFiles/falcon_bt.dir/main.cpp.obj	8b015b922f9be7c1
+422	497	7431708589873875	falcon_bt/falcon_bt.exe	81414a01f397022c

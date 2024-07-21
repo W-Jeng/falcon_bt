@@ -141,7 +141,7 @@
 			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake"
 		},
 		{
-			"path" : "falcon_bt/CMakeLists.txt"
+			"path" : "src/CMakeLists.txt"
 		}
 	],
 	"kind" : "cmakeFiles",

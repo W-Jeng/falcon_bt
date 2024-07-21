@@ -5,6 +5,6 @@
 class BacktestHandler {
 public:
     void run_backtest(BaseStrategy* base_strategy) {
-        base_strategy->show();
+        base_strategy->on_tick();
     }
 };

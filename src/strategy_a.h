@@ -5,8 +5,7 @@
 
 class Strategy:public BaseStrategy {
 public:
-    void show()
-    {
-        std::cout << "Derived Class";
+    void on_tick() override {
+        std::cout << "Derived Class" <<  std::endl;
     }
 };

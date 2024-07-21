@@ -12,4 +12,4 @@ endif()
 project ("falcon_bt")
 
 # Include sub-projects.
-add_subdirectory ("falcon_bt")
+add_subdirectory ("src")

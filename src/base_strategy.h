@@ -3,8 +3,5 @@
 
 class BaseStrategy {
 public:
-    void show()
-    {
-        std::cout << "Base class";
-    }
+    virtual void on_tick() = 0;
 };

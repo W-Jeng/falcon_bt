@@ -99,9 +99,9 @@ To save memory, it's better to load the tick data on the fly and maintain it usi
 1) initiation requires reading data for string stream across different files for ONE DAY
 */
 class DataReader {
-
 public:
+    DataReader(std::string t_dir, std::vector<std::string> t_symbols, std::string t_date);
 
-
+    void create_input_stream();
 };
 

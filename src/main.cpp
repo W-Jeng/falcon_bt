@@ -10,6 +10,10 @@ int main() {
     backtest_handler.run_backtest(&strategy);
     */
     // read_content();
-    DataReader data_reader("dirdir", {"ABCD", "CDE"}, "2024-01-01");
+    DataReader data_reader("C:\\Users\\User\\Desktop\\cpp\\falcon_bt\\data", {"GE"}, "20240719");
+    data_reader.create_input_stream();
+
+    MboMessage* msg = data_reader.get_next_message("GE");
+
     return 0;
 }

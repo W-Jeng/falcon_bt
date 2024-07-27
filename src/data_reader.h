@@ -34,12 +34,12 @@ public:
     std::string file_directory;
     std::vector<std::string> symbols;
     std::string date;
-    std::unordered_map<std::string, std::ifstream*> file_streamers;
+    std::unordered_map<std::string, std::unique_ptr<std::ifstream>> file_streamers;
 
     DataReader(std::string t_dir, std::vector<std::string> t_symbols, std::string t_date);
 
     void create_input_stream();
-    MboMessage get_next_message(std::string sym);
+    MboMessage* get_next_message(std::string sym);
 
 private:
     MboMessage* convert_content(std::ifstream& file_streamer);

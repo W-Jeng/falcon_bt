@@ -9,37 +9,54 @@ void DataReader::create_input_stream() {
 
     for (int i = 0; i < symbols.size(); ++i) {
         std::string full_file_dir(file_directory + "\\" + symbols[i] + "_" + date + ".csv");
-        std::ifstream input_stream_file(full_file_dir);
+        std::unique_ptr<std::ifstream> input_stream_file = std::make_unique<std::ifstream>(full_file_dir);
 
         // check if file exists, if not throw error
         if (!input_stream_file) {
             throw std::runtime_error("Unable to source the file for input stream: " + full_file_dir);
         }
+        std::string line;
+        std::getline(*input_stream_file, line);
 
-        file_streamers[symbols[i]] = &input_stream_file;
+        std::cout << "line: " << line << std::endl;
+
+        file_streamers.emplace(symbols[i], std::move(input_stream_file));
     }
     return;
 }
 
-
+MboMessage* DataReader::get_next_message(std::string sym) {
+    std::cout << "here 0" << std::endl;
+    std::cout << "mem: " << file_streamers[sym] << std::endl;
+    
+    MboMessage* msg = convert_content(*(file_streamers[sym]));
+    
+    return msg;
+}
 
 MboMessage* DataReader::convert_content(std::ifstream& file_streamer) {
     // if data exist then return the data, else return nullptr
 
     std::string line;
+    std::cout << "here 1" << std::endl;
+    std::getline(file_streamer, line);
 
-    if (!std::getline(file_streamer, line)) return nullptr;
-    
+    std::cout << "here 1.5" << std::endl;
+    if (!std::getline(file_streamer, line)) {
+        std::cout << "here!" << std::endl;
+        return nullptr;
+    }
+    std::cout << "here 2" << std::endl;
     std::istringstream line_stream(line);
     std::string field;
     MboMessage mbo_msg;
-
+    std::cout << "here 3" << std::endl;
     std::getline(line_stream, mbo_msg.ts_recv, ',');
     std::getline(line_stream, mbo_msg.ts_event, ',');
 
     std::getline(line_stream, field,',');
     mbo_msg.rtype = std::stoi(field);
-
+    std::cout << "here 3" << std::endl;
     std::getline(line_stream, field,',');
     mbo_msg.publisher_id = std::stoi(field);
         

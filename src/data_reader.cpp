@@ -24,6 +24,8 @@ void DataReader::create_input_stream(std::string date) {
 };
 
 void DataReader::init_on_minheap_symbols() {
+    // initialize the basis of min heap on every symbol
+    
     for (int i = 0; i < symbols.size(); ++i) {
         std::unique_ptr<MboMessage> msg = get_next_sym_message(symbols[i]);
         if (msg != nullptr) {
@@ -37,13 +39,15 @@ void DataReader::init_on_minheap_symbols() {
 };
 
 std::unique_ptr<MboMessage> DataReader::get_next_message() {
+    // key idea is to we take the top then replace the tickers data in
+    // if data priority is empty meaning we have exhausted all available data across all input streamers
     if (data_priority.empty()) return nullptr;
 
     MboMessage priority_msg = data_priority.top();
     data_priority.pop(); // remove the message before adding new message
 
     std::unique_ptr<MboMessage> msg = get_next_sym_message(priority_msg.symbol);
-    data_priority.push(*msg);
+    if (msg != nullptr) data_priority.push(*msg);
 
     return std::make_unique<MboMessage>(priority_msg);
 };

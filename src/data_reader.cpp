@@ -1,11 +1,10 @@
 #include "data_reader.h"
 
-DataReader::DataReader(std::string t_dir, std::vector<std::string> t_symbols, std::string t_date):
-    file_directory(t_dir), symbols(std::move(t_symbols)), date(t_date){};
+DataReader::DataReader(std::string t_dir, std::vector<std::string> t_symbols):
+    file_directory(t_dir), symbols(std::move(t_symbols)){};
 
-void DataReader::create_input_stream() {
+void DataReader::create_input_stream(std::string date) {
     // this function is supposed to create all the input streams for all symbols for the particular date
-
     for (int i = 0; i < symbols.size(); ++i) {
         std::string full_file_dir(file_directory + "\\" + symbols[i] + "_" + date + ".csv");
         // handles closing the input stream by automatically deallocating the memory

@@ -10,8 +10,8 @@ int main() {
     backtest_handler.run_backtest(&strategy);
     */
     // read_content();
-    DataReader data_reader("C:\\Users\\User\\Desktop\\cpp\\falcon_bt\\data", {"GE"}, "20240719");
-    data_reader.create_input_stream();
+    DataReader data_reader("C:\\Users\\User\\Desktop\\cpp\\falcon_bt\\data", {"GE"});
+    data_reader.create_input_stream("20240719");
 
     std::unique_ptr<MboMessage> msg = data_reader.get_next_message("GE");
 

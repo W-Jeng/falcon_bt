@@ -34,12 +34,11 @@ class DataReader {
 public:
     std::string file_directory;
     std::vector<std::string> symbols;
-    std::string date;
     std::unordered_map<std::string, std::unique_ptr<std::ifstream>> file_streamers;
 
-    DataReader(std::string t_dir, std::vector<std::string> t_symbols, std::string t_date);
+    DataReader(std::string t_dir, std::vector<std::string> t_symbols);
 
-    void create_input_stream();
+    void create_input_stream(std::string date);
     std::unique_ptr<MboMessage> get_next_message(std::string sym);
 
 private:

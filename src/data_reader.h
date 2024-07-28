@@ -23,6 +23,7 @@ struct MboMessage{
     uint32_t ts_in_delta;
     uint32_t sequence;
     std::string symbol;
+    bool is_loaded = false;
 };
 
 /*
@@ -39,9 +40,9 @@ public:
     DataReader(std::string t_dir, std::vector<std::string> t_symbols, std::string t_date);
 
     void create_input_stream();
-    MboMessage* get_next_message(std::string sym);
+    std::unique_ptr<MboMessage> get_next_message(std::string sym);
 
 private:
-    MboMessage* convert_content(std::ifstream& file_streamer);
+    std::unique_ptr<MboMessage> convert_content(std::ifstream& file_streamer);
 };
 

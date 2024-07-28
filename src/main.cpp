@@ -13,7 +13,13 @@ int main() {
     DataReader data_reader("C:\\Users\\User\\Desktop\\cpp\\falcon_bt\\data", {"GE"}, "20240719");
     data_reader.create_input_stream();
 
-    MboMessage* msg = data_reader.get_next_message("GE");
+    std::unique_ptr<MboMessage> msg = data_reader.get_next_message("GE");
+
+    std::cout << "ts: " << msg -> ts_recv << std::endl;
+
+    std::unique_ptr<MboMessage> msg2 = data_reader.get_next_message("GE");
+
+    std::cout << "ts: " << msg2 -> ts_recv << std::endl;
 
     return 0;
 }

@@ -21,11 +21,36 @@ void DataReader::create_input_stream(std::string date) {
         file_streamers.emplace(symbols[i], std::move(input_stream_file));
     }
     return;
-}
+};
 
-std::unique_ptr<MboMessage> DataReader::get_next_message(std::string sym) {
+void DataReader::init_on_minheap_symbols() {
+    for (int i = 0; i < symbols.size(); ++i) {
+        std::unique_ptr<MboMessage> msg = get_next_sym_message(symbols[i]);
+        if (msg != nullptr) {
+            data_priority.push(*msg);
+        }
+    }
+
+    MboMessage temp = data_priority.top();
+    std::cout << "top ts event: " << temp.ts_event << std::endl;
+    return;
+};
+
+std::unique_ptr<MboMessage> DataReader::get_next_message() {
+    if (data_priority.empty()) return nullptr;
+
+    MboMessage priority_msg = data_priority.top();
+    data_priority.pop(); // remove the message before adding new message
+
+    std::unique_ptr<MboMessage> msg = get_next_sym_message(priority_msg.symbol);
+    data_priority.push(*msg);
+
+    return std::make_unique<MboMessage>(priority_msg);
+};
+
+std::unique_ptr<MboMessage> DataReader::get_next_sym_message(std::string sym) {
     return convert_content(*(file_streamers[sym]));
-}
+};
 
 std::unique_ptr<MboMessage> DataReader::convert_content(std::ifstream& file_streamer) {
     // if data exist then return the data, else return nullptr

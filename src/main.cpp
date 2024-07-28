@@ -1,6 +1,7 @@
 ﻿#include "backtest_handler.h"
 #include "strategy_a.h"
 #include "data_reader.h"
+#include "event.h"
 
 
 int main() {

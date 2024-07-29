@@ -25,7 +25,6 @@ void DataReader::create_input_stream(std::string date) {
 
 void DataReader::init_on_minheap_symbols() {
     // initialize the basis of min heap on every symbol
-    
     for (int i = 0; i < symbols.size(); ++i) {
         std::unique_ptr<MboMessage> msg = get_next_sym_message(symbols[i]);
         if (msg != nullptr) {

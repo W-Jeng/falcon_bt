@@ -11,7 +11,7 @@ void DataReader::create_input_stream(std::string date) {
         std::unique_ptr<std::ifstream> input_stream_file = std::make_unique<std::ifstream>(full_file_dir);
 
         // check if file exists, if not throw error
-        if (!input_stream_file) {
+        if (!(*input_stream_file)) {
             throw std::runtime_error("Unable to source the file for input stream: " + full_file_dir);
         }
         // take away header
@@ -41,13 +41,17 @@ void DataReader::init_on_minheap_symbols() {
 std::unique_ptr<MboMessage> DataReader::get_next_message() {
     // key idea is to we take the top then replace the tickers data in
     // if data priority is empty meaning we have exhausted all available data across all input streamers
-    if (data_priority.empty()) return nullptr;
+    if (data_priority.empty()) {
+        return nullptr;
+    }
 
     MboMessage priority_msg = data_priority.top();
     data_priority.pop(); // remove the message before adding new message
 
     std::unique_ptr<MboMessage> msg = get_next_sym_message(priority_msg.symbol);
-    if (msg != nullptr) data_priority.push(*msg);
+    if (msg != nullptr) {
+        data_priority.push(*msg);
+    }
 
     return std::make_unique<MboMessage>(priority_msg);
 };
@@ -60,7 +64,9 @@ std::unique_ptr<MboMessage> DataReader::convert_content(std::ifstream& file_stre
     // if data exist then return the data, else return nullptr
     std::string line;
 
-    if (!std::getline(file_streamer, line)) return nullptr;
+    if (!std::getline(file_streamer, line)) {
+        return nullptr;
+    }
     
     std::istringstream line_stream(line);
     std::string field;
@@ -104,4 +110,11 @@ std::unique_ptr<MboMessage> DataReader::convert_content(std::ifstream& file_stre
     std::getline(line_stream,mbo_msg -> symbol,',');
 
     return mbo_msg;
+};
+
+inline std::string DataReader::get_latest_timestamp() const {
+    if (data_priority.empty()) {
+        return "";
+    }
+    return data_priority.top().ts_event;
 };

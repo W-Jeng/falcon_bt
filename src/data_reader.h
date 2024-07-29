@@ -51,6 +51,7 @@ public:
     void create_input_stream(std::string date);
     void init_on_minheap_symbols();
     std::unique_ptr<MboMessage> get_next_message();
+    inline std::string get_latest_timestamp() const;
 
 private:
     std::unique_ptr<MboMessage> get_next_sym_message(std::string sym);

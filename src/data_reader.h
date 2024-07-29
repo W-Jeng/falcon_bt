@@ -37,6 +37,7 @@ struct MboMessage {
 /*
 To save memory, it's better to load the tick data on the fly and maintain it using a min_heap on the unix timestamp
 1) initiation requires reading data for string stream across different files for ONE DAY
+2) DataReader is meant as a collection of data in a memory efficient way
 */
 
 class DataReader {

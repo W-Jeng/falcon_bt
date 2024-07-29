@@ -15,7 +15,7 @@ struct Event {
     Event(const EventType& t_event_type):
         event_type(t_event_type){};
 
-    bool operator>(const Event& other) {
+    bool operator>(const Event& other) const {
         return timestamp > other.timestamp;
     }
 

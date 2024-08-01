@@ -3,11 +3,11 @@
 DataReader::DataReader(std::string t_dir, std::vector<std::string> t_symbols):
     file_directory(t_dir), symbols(std::move(t_symbols)){};
 
+// this function is supposed to create all the input streams for all symbols for the particular date
+// handles closing the input stream by automatically deallocating the memory
 void DataReader::create_input_stream(std::string date) {
-    // this function is supposed to create all the input streams for all symbols for the particular date
     for (int i = 0; i < symbols.size(); ++i) {
         std::string full_file_dir(file_directory + "\\" + symbols[i] + "_" + date + ".csv");
-        // handles closing the input stream by automatically deallocating the memory
         std::unique_ptr<std::ifstream> input_stream_file = std::make_unique<std::ifstream>(full_file_dir);
 
         // check if file exists, if not throw error
@@ -23,8 +23,8 @@ void DataReader::create_input_stream(std::string date) {
     return;
 };
 
+// initialize the basis of min heap on every symbol
 void DataReader::init_on_minheap_symbols() {
-    // initialize the basis of min heap on every symbol
     for (int i = 0; i < symbols.size(); ++i) {
         std::unique_ptr<MboMessage> msg = get_next_sym_message(symbols[i]);
         if (msg != nullptr) {
@@ -37,15 +37,15 @@ void DataReader::init_on_minheap_symbols() {
     return;
 };
 
+// key idea is to we take the top then replace the tickers data in
+// if data priority is empty meaning we have exhausted all available data across all input streamers
 std::unique_ptr<MboMessage> DataReader::get_next_message() {
-    // key idea is to we take the top then replace the tickers data in
-    // if data priority is empty meaning we have exhausted all available data across all input streamers
     if (data_priority.empty()) {
         return nullptr;
     }
-
+    // get top, then remove the message before adding new message
     MboMessage priority_msg = data_priority.top();
-    data_priority.pop(); // remove the message before adding new message
+    data_priority.pop(); 
 
     std::unique_ptr<MboMessage> msg = get_next_sym_message(priority_msg.symbol);
     if (msg != nullptr) {
@@ -59,8 +59,8 @@ std::unique_ptr<MboMessage> DataReader::get_next_sym_message(std::string sym) {
     return convert_content(*(file_streamers[sym]));
 };
 
+// this is to get the filestreamer's next line code and transform to appropriate data class
 std::unique_ptr<MboMessage> DataReader::convert_content(std::ifstream& file_streamer) {
-    // if data exist then return the data, else return nullptr
     std::string line;
 
     if (!std::getline(file_streamer, line)) {

@@ -2,7 +2,7 @@
 #include "order.h"
 #include "util.h"
 
-
+// for LMT order initialization
 Order::Order(std::string t_symbol, OrderSide t_order_side, std::uint32_t t_quantity, OrderType t_order_type, double t_limit_price): 
     symbol(std::move(t_symbol)), order_side(t_order_side), quantity(t_quantity), order_type(t_order_type), limit_price(t_limit_price) {
         if (quantity <= 0) {
@@ -10,10 +10,14 @@ Order::Order(std::string t_symbol, OrderSide t_order_side, std::uint32_t t_quant
         }
     };
 
+// for MKT order initialization
 Order::Order(std::string t_symbol, OrderSide t_order_side, std::uint32_t t_quantity, OrderType t_order_type): 
     symbol(std::move(t_symbol)), order_side(t_order_side), quantity(t_quantity), order_type(t_order_type), limit_price(0.0) {
         if (quantity <= 0) {
             throw std::invalid_argument("Quantity cannot be zero or negative");
+        }
+        if (order_type == OrderType::LMT) {
+            throw std::invalid_argument("If order type is set to LMT, limit price must be present");
         }
     };
 

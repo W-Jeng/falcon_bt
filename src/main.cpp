@@ -2,7 +2,7 @@
 #include "strategy_a.h"
 #include "data_reader.h"
 #include "event.h"
-
+#include "order.h"
 
 int main() {
     /*
@@ -49,5 +49,9 @@ int main() {
     std::cout << "ts: " << data_reader.get_next_message() -> ts_event << std::endl;
     std::cout << "ts: " << data_reader.get_next_message() -> ts_event << std::endl;
     std::cout << "ts: " << data_reader.get_next_message() -> ts_event << std::endl;
+
+    Order order("abc", OrderSide::B, 100, OrderType::LMT, 100.02); 
+    std::cout << order.to_string() << std::endl;
+
     return 0;
 }

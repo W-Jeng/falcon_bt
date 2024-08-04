@@ -50,8 +50,10 @@ int main() {
     std::cout << "ts: " << data_reader.get_next_message() -> ts_event << std::endl;
     std::cout << "ts: " << data_reader.get_next_message() -> ts_event << std::endl;
 
-    Order order("abc", OrderSide::B, 100, OrderType::LMT, 100.02); 
+    Order order("abc", OrderSide::B, 100, OrderType::LMT, 100.02, "123_temp"); 
     std::cout << order.to_string() << std::endl;
 
+    OrderTicket order_ticket(order, "110", "001", "002");
+    std::cout << order_ticket.to_string() << std::endl;
     return 0;
 }

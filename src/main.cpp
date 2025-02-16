@@ -3,6 +3,7 @@
 #include "data_reader.h"
 #include "event.h"
 #include "order.h"
+#include <iostream>
 
 int main() {
     /*
@@ -11,6 +12,9 @@ int main() {
     backtest_handler.run_backtest(&strategy);
     */
     // read_content();
+
+    std::cout << "hello world!" << std::endl;
+    /*
     DataReader data_reader("C:\\Users\\User\\Desktop\\cpp\\falcon_bt\\data", {"GE", "ROKU"});
     data_reader.create_input_stream("20240719");
     data_reader.init_on_minheap_symbols();
@@ -55,5 +59,6 @@ int main() {
 
     OrderTicket order_ticket(order, "110", "001", "002");
     std::cout << order_ticket.to_string() << std::endl;
+    */
     return 0;
 }
